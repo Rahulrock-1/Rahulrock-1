@@ -106,4 +106,15 @@ dotnet pack -c Release /p:PackageVersion=1.0.0
 # dotnet nuget push ./bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
 ```
 
+### CI publish
+
+Create repository secret `NUGET_API_KEY`. Push a tag like `v1.2.3` or run workflow manually.
+Workflow file: `.github/workflows/nuget-publish.yml`.
+
+### Manual publish
+
+```bash
+scripts/publish-nuget.sh 1.2.3 $NUGET_API_KEY
+```
+
 License: MIT
