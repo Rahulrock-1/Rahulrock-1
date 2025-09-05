@@ -1,0 +1,46 @@
+# Build
+bin/
+obj/
+**/bin/
+**/obj/
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+*.userprefs
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Packages
+*.nupkg
+*.snupkg
+.nuget/
+
+# Tools
+out/
+
+# Logs
+*.log
+
+# Node
+node_modules/
+
+# Env
+.env
+.env.*
+
+# Rider/JetBrains
+*.sln.iml
+**/.idea/**
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# GitHub
+!.github/
