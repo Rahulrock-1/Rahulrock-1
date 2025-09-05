@@ -78,6 +78,26 @@ public sealed class MyRepository(IMultiDbConnectionFactory factory)
 
 Note: Ensure your app references relevant ADO.NET providers: `Npgsql`, `Microsoft.Data.SqlClient`, `MySql.Data`, `Microsoft.Data.Sqlite`.
 
+## DI Auto-Registration (Attributes)
+
+Use attributes to auto-register services with desired lifetimes. Then call `AddAttributedServicesFromAppDomain()` or `AddAttributedServices()`.
+
+```csharp
+using MultiDb.Extensions.DI.Attributes;
+
+[RegisterSingleton(typeof(IMySingletonService))]
+public sealed class MySingletonService : IMySingletonService { }
+
+[RegisterScoped(typeof(IMyScopedService))]
+public sealed class MyScopedService : IMyScopedService { }
+
+[RegisterTransient(typeof(IMyTransientService))]
+public sealed class MyTransientService : IMyTransientService { }
+
+// Program.cs
+builder.Services.AddAttributedServicesFromAppDomain();
+```
+
 ## Pack / Publish
 
 ```bash
