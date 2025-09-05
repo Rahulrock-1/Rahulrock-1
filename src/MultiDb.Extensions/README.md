@@ -78,12 +78,43 @@ public sealed class MyRepository(IMultiDbConnectionFactory factory)
 
 Note: Ensure your app references relevant ADO.NET providers: `Npgsql`, `Microsoft.Data.SqlClient`, `MySql.Data`, `Microsoft.Data.Sqlite`.
 
+## DI Auto-Registration (Attributes)
+
+Use attributes to auto-register services with desired lifetimes. Then call `AddAttributedServicesFromAppDomain()` or `AddAttributedServices()`.
+
+```csharp
+using MultiDb.Extensions.DI.Attributes;
+
+[RegisterSingleton(typeof(IMySingletonService))]
+public sealed class MySingletonService : IMySingletonService { }
+
+[RegisterScoped(typeof(IMyScopedService))]
+public sealed class MyScopedService : IMyScopedService { }
+
+[RegisterTransient(typeof(IMyTransientService))]
+public sealed class MyTransientService : IMyTransientService { }
+
+// Program.cs
+builder.Services.AddAttributedServicesFromAppDomain();
+```
+
 ## Pack / Publish
 
 ```bash
 dotnet pack -c Release /p:PackageVersion=1.0.0
 # then push
 # dotnet nuget push ./bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
+```
+
+### CI publish
+
+Create repository secret `NUGET_API_KEY`. Push a tag like `v1.2.3` or run workflow manually.
+Workflow file: `.github/workflows/nuget-publish.yml`.
+
+### Manual publish
+
+```bash
+scripts/publish-nuget.sh 1.2.3 $NUGET_API_KEY
 ```
 
 License: MIT
